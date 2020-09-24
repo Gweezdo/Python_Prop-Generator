@@ -29,13 +29,15 @@ def propGenerator():
                 "jacks": ''
             }
 
-            no_of_jacks = input("Do you want a Megashor Jack on one end or both ends of the prop? /nEnter '1' for one end or '2' for both ends: ")
+            no_of_jacks = input("Do you want a Megashor Jack on one end or both ends of the prop? Enter '1' for one end or '2' for both ends: ")
             if no_of_jacks == '1':
                 lower_limit = 410
                 upper_limit = 620
+                prop["jacks"] = 1
             else:
                 lower_limit = 820
                 upper_limit = 1240
+                prop["jacks"] = 2
 
             
             height = int(height)
@@ -46,26 +48,38 @@ def propGenerator():
                 print("height= " + str(height))
                 print("i= " + str(i))
 
-                
-                if (height/i >= 2):
-                    if res > upper_limit:
-                        temp = math.floor(height/i)
-                        prop[str(i)] = temp
-                        height = res
-                        print(i)
-                    if lower_limit < res and res < upper_limit:
-                        pass
-                elif height/i >= 1 and height/i < 2 and res > upper_limit:
-                    prop[str(i)] = 1
-                    height -= i
-                    print(i)
-                elif height/i < 1 and res > lower_limit and res < upper_limit:
-                    prop["jacks"] = no_of_jacks
-                    print(i)
-                    
+                count = 0
+                while(height/i > 1):
+                    if((height - i) > lower_limit or res > lower_limit):
+
+                        count += 1
+                        print("count =" + str(count))
+                        height -= i
+                    else:
+                        break
+
+
+                prop[str(i)] = count
+                # height -= i*count  
         else:
             flag = True  
     print(prop)    
     
 propGenerator()
 
+
+                # if (height/i >= 2):
+                #     if res > upper_limit:
+                #         temp = math.floor(height/i)
+                #         prop[str(i)] = temp
+                #         height = res
+                #         print(i)
+                #     if lower_limit < res and res < upper_limit:
+                #         pass
+                # elif height/i >= 1 and height/i < 2 and res > upper_limit:
+                #     prop[str(i)] = 1
+                #     height -= i
+                #     print(i)
+                # elif height/i < 1 and res > lower_limit and res < upper_limit:
+                #     prop["jacks"] = no_of_jacks
+                #     print(i)
