@@ -1,4 +1,16 @@
 import math
+from rpw.ui.forms import TextInput
+
+import clr
+from Autodesk.Revit.DB import DWGImportOptions, ImportPlacement, ElementId, Transaction
+
+doc = __revit__.ActiveUIDocument.Document
+uidoc = __revit__.ActiveUIDocument
+
+options = DWGImportOptions()
+options.Placement = ImportPlacement.Origin
+link = clr.Reference[ElementId]()
+t = Transaction(doc)
 
 #height takes a float value in mm
 def propGenerator():
@@ -7,7 +19,7 @@ def propGenerator():
     flag = True
     while(flag):
         flag = False
-        height = input("Please enter a integer value in mm: ")
+        height = TextInput("Prop Generator", description="Please enter a integer value in mm:", default="0")
 
         if height.isdigit():
             print("is digit")
@@ -28,7 +40,7 @@ def propGenerator():
                 "jacks": ''
             }
 
-            no_of_jacks = input("Do you want a Megashor Jack on one end or both ends of the prop? Enter '1' for one end or '2' for both ends: ")
+            no_of_jacks = TextInput("Prop Generator", description="Megashor Jack on one(1) end or both(2) ends: ", default="1")
             if no_of_jacks == '1':
                 lower_limit = 410
                 upper_limit = 620
